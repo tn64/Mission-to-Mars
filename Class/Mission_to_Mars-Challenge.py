@@ -75,16 +75,16 @@ hemisphere_image_urls = []
 
 # 3. Write code to retrieve the image urls and titles for each hemisphere.
 for i in range (4):
-    #Create an empty dictionary
     hemispheres = {}
-    browser.find_by_css('a.product-item h3')[i].click()
+    browser.find_by_tag('h3')[i].click()
     element = browser.links.find_by_text('Sample').first
     img_url = element['href']
-    title = browser.find_by_css("h2.title").text
+    title = browser.find_by_tag('h2').text
     hemispheres["img_url"] = img_url
     hemispheres["title"] = title
     hemisphere_image_urls.append(hemispheres)
     browser.back()
+return hemisphere_image_urls
 
 # 4. Print the list that holds the dictionary of each image url and title.
 hemisphere_image_urls

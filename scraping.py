@@ -1,5 +1,5 @@
 # Import Splinter and BeautifulSoup
-from splinter import Browser
+from splinter import Browser, browser
 from bs4 import BeautifulSoup as soup
 import pandas as pd
 import datetime as dt
@@ -22,7 +22,7 @@ def scrape_all():
         "last_modified": dt.datetime.now(),
         "hemispheres": hemispheres(browser)
     }
-
+    print(data['hemispheres'])
     # Stop webdriver and return data
     browser.quit()
     return data
@@ -117,18 +117,18 @@ def hemispheres(browser):
 
     # 3. Write code to retrieve the image urls and titles for each hemisphere.
     for i in range (4):
-        #Create an empty dictionary
         hemispheres = {}
-        browser.find_by_css('a.product-item h3')[i].click()
+        browser.find_by_tag('h3')[i].click()
         element = browser.links.find_by_text('Sample').first
         img_url = element['href']
-        title = browser.find_by_css("h2.title").text
+        title = browser.find_by_tag('h2').text
         hemispheres["img_url"] = img_url
         hemispheres["title"] = title
         hemisphere_image_urls.append(hemispheres)
         browser.back()
+    return hemisphere_image_urls
 
 if __name__ == "__main__":
-
-    # If running as script, print scraped data
-    print(scrape_all())
+    
+    #If running as script, print scraped data
+    scrape_all()
